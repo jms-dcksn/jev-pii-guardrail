@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "id": "ReviewPathExactMatch",
+  "evaluatorTypeId": "uipath-exact-match",
+  "description": "Deterministic routing check. review_path must equal the ReviewPath column of evaluations/data/synthetic-priorauth-dataset-v1.csv. Binary per case. Precision, recall, F-score and a confusion matrix over the run.",
+  "evaluatorConfig": {
+    "name": "ReviewPathExactMatch",
+    "description": "Exact match on one enum field. No partial credit: a case routed to the wrong reviewer is wrong.",
+    "targetOutputKey": "review_path",
+    "classes": ["Auto-Criteria", "Human-Review", "Exception"],
+    "aggregators": [
+      { "type": "confusion_matrix" },
+      { "type": "precision", "averaging": "macro" },
+      { "type": "recall", "averaging": "macro" },
+      { "type": "fscore", "averaging": "macro" }
+    ],
+    "defaultEvaluationCriteria": null
+  }
+}

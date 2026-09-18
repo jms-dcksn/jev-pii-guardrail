@@ -1,0 +1,10 @@
+{
+  "action": "Deny",
+  "status": "Completed",
+  "id": 3,
+  "data": {
+    "reviewerNotes": "Submission is unusable and the practice did not respond to two requests for the missing codes and documentation. Denied at intake without a clinical determination. The practice may resubmit a complete request.",
+    "reviewerAttestation": true,
+    "finalUrgency": "Routine"
+  }
+}

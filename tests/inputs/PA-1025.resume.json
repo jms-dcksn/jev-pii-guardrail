@@ -1,0 +1,10 @@
+{
+  "action": "ReturnToAgent",
+  "status": "Completed",
+  "id": 1,
+  "data": {
+    "reviewerNotes": "Intake is unusable. No ICD-10 and a '0' CPT placeholder, and the note is a request rather than a clinical record. Sent back to the provider for a complete submission with the referenced notes attached.",
+    "reviewerAttestation": true,
+    "finalUrgency": "Routine"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "action": "ReturnToAgent",
+  "status": "Completed",
+  "id": 2,
+  "data": {
+    "reviewerNotes": "Called the requesting practice on 9/12/26 and got the missing intake fields. The request is a knee arthroscopy with partial medial meniscectomy, CPT 29881, ICD-10 M23.32, estimated cost $4,800. Clinical documentation has now been received against MRN 4471982: six weeks of failed conservative therapy, MRI confirms a medial meniscus tear, positive McMurray on exam. Nothing is outstanding. Triage this on the information above.",
+    "reviewerAttestation": true,
+    "finalUrgency": "Routine"
+  }
+}

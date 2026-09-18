@@ -1,0 +1,15 @@
+{
+  "case_id": "PA-1025",
+  "member_id": "SMBR-000025",
+  "member_dob": "3/26/84",
+  "plan_type": "Commercial HMO",
+  "provider_npi": "1000000256",
+  "service_requested": "Ambiguous/Incomplete Request",
+  "cpt_code": "0",
+  "icd10_code": null,
+  "clinical_indication": "Free-text only no structured codes",
+  "submitted_date": "8/13/26",
+  "requested_urgency": "Routine",
+  "estimated_cost": 0.0,
+  "clinical_note": "pls approve the thing for my patient asap. sent notes last week. thanks [NO STRUCTURED DATA - MALFORMED INTAKE FOR ROBUSTNESS TEST]"
+}

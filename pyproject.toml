@@ -1,0 +1,15 @@
+[project]
+name = "prior-auth-triage-agent"
+version = "0.0.1"
+description = "Prior-auth intake triage agent with a TypeSafe Jev PII detection guardrail on the model boundary"
+authors = [{ name = "James Dickson", email = "james.dickson@uipath.com" }]
+dependencies = [
+    "uipath-langchain[bedrock,vertex]>=0.18.0, <0.19.0",
+    "langchain-typesafe>=0.0.1a2",
+]
+requires-python = ">=3.11"
+
+[dependency-groups]
+dev = [
+    "uipath-dev>=0.0.85",
+]

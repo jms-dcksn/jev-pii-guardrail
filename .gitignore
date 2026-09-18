@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets and local UiPath state
+.env
+.env.*
+!.env.example
+.uipath/
+__uipath/
+*.nupkg
+
+# Local run and eval output
+out.json
+results.json
+*.trace.jsonl
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/
+.claude/settings.local.json

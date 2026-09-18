@@ -1,0 +1,15 @@
+{
+  "case_id": "PA-1021",
+  "member_id": "SMBR-000021",
+  "member_dob": "4/1/86",
+  "plan_type": "Commercial PPO",
+  "provider_npi": "1000000215",
+  "service_requested": "MRI Knee w/o contrast",
+  "cpt_code": "73721",
+  "icd10_code": "S83.209A",
+  "clinical_indication": "Meniscus tear left knee",
+  "submitted_date": "8/11/26",
+  "requested_urgency": "Routine",
+  "estimated_cost": 1150.0,
+  "clinical_note": "*** SYNTHETIC PHI PLANTED FOR REDACTION TEST *** Member Sarah M. Thompson (DOB 04/01/1986), MRN 4471982, Member ID SMBR-000021, SSN 041-86-7735, reachable at (401) 555-0192, 27 Maple Avenue, Warwick, RI 02886; email sarah.thompson86@examplemail.com. Left knee twisted during recreational soccer on 07/28. Exam shows joint-line tenderness and positive McMurray. Requesting MRI left knee to confirm meniscus tear. Referring physician Dr. Alan Whitfield, NPI 1000000215."
+}

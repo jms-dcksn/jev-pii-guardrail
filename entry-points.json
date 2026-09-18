@@ -1,0 +1,376 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "agent",
+            "uniqueId": "5faca00b-4cc9-4677-a0c6-97fd1aed6f7b",
+            "type": "agent",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "case_id": {
+                        "description": "Case identifier, e.g. PA-1021.",
+                        "title": "Case Id",
+                        "type": "string"
+                    },
+                    "member_id": {
+                        "type": "string"
+                    },
+                    "member_dob": {
+                        "type": "string"
+                    },
+                    "plan_type": {
+                        "type": "string"
+                    },
+                    "provider_npi": {
+                        "type": "string"
+                    },
+                    "service_requested": {
+                        "type": "string"
+                    },
+                    "cpt_code": {
+                        "type": "string"
+                    },
+                    "icd10_code": {
+                        "type": "string"
+                    },
+                    "clinical_indication": {
+                        "type": "string"
+                    },
+                    "submitted_date": {
+                        "type": "string"
+                    },
+                    "requested_urgency": {
+                        "type": "string"
+                    },
+                    "estimated_cost": {
+                        "type": "number"
+                    },
+                    "clinical_note": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "case_id"
+                ]
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "case_id": {
+                        "description": "Echoed from the request.",
+                        "title": "Case Id",
+                        "type": "string"
+                    },
+                    "review_path": {
+                        "description": "Auto-Criteria, Human-Review, or Exception.",
+                        "enum": [
+                            "Auto-Criteria",
+                            "Human-Review",
+                            "Exception"
+                        ],
+                        "title": "Review Path",
+                        "type": "string"
+                    },
+                    "routing_rationale": {
+                        "description": "One or two sentences on why this path. Name the criteria and the cost, never the member.",
+                        "title": "Routing Rationale",
+                        "type": "string"
+                    },
+                    "exception_reason": {
+                        "description": "Only when review_path is Exception: what is missing or unusable, and what a human must supply before the case can be triaged. Field names only, never values. Empty string on every other path.",
+                        "title": "Exception Reason",
+                        "type": "string"
+                    },
+                    "data_quality": {
+                        "description": "Complete, Incomplete, or Malformed.",
+                        "enum": [
+                            "Complete",
+                            "Incomplete",
+                            "Malformed"
+                        ],
+                        "title": "Data Quality",
+                        "type": "string"
+                    },
+                    "missing_fields": {
+                        "description": "Names of absent or unusable fields. Names only, never values.",
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Missing Fields",
+                        "type": "array"
+                    },
+                    "high_cost": {
+                        "description": "True when estimated cost is at or above $10,000.",
+                        "title": "High Cost",
+                        "type": "boolean"
+                    },
+                    "urgency": {
+                        "description": "Urgency after review: Routine or Urgent. May escalate the submitted value when the note shows red-flag symptoms.",
+                        "title": "Urgency",
+                        "type": "string"
+                    },
+                    "sensitive_categories": {
+                        "description": "Special-handling tags, e.g. 42-CFR-Part-2, Behavioral-Health, Genetic.",
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Sensitive Categories",
+                        "type": "array"
+                    },
+                    "phi_types_observed": {
+                        "description": "Types of identifier seen in the note, e.g. SSN, MRN, Phone. Types only, never the values themselves.",
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Phi Types Observed",
+                        "type": "array"
+                    },
+                    "clinical_summary": {
+                        "description": "Short restatement of the case for the reviewer.",
+                        "title": "Clinical Summary",
+                        "type": "string"
+                    },
+                    "confidence": {
+                        "description": "Confidence in the routing decision, 0.0 to 1.0.",
+                        "title": "Confidence",
+                        "type": "number"
+                    },
+                    "pii_reports": {
+                        "description": "One entry per model boundary checked: the identifier types Jev was asked about, its probability for each, and the exposure score. Carries no identifier value.",
+                        "items": {
+                            "description": "One boundary, checked once.\n\n`status` exists so a boundary that was never checked cannot be mistaken for\none that came back clean. Detection is fail-open -- a detector outage must\nnot take the agent down -- and a silent skip is how you end up believing a\nboundary was inspected when it was not.",
+                            "properties": {
+                                "boundary": {
+                                    "description": "\"request\" (into the model) or \"response\" (out of it).",
+                                    "title": "Boundary",
+                                    "type": "string"
+                                },
+                                "status": {
+                                    "description": "\"checked\", or \"unchecked\" with the reason.",
+                                    "title": "Status",
+                                    "type": "string"
+                                },
+                                "exposure": {
+                                    "default": 0.0,
+                                    "description": "How identifiable the patient is from this text, 0.0 to 3.0.",
+                                    "title": "Exposure",
+                                    "type": "number"
+                                },
+                                "findings": {
+                                    "description": "One entry per identifier type asked about.",
+                                    "items": {
+                                        "description": "What Jev said about one identifier type. Never carries a value.",
+                                        "properties": {
+                                            "pii_type": {
+                                                "description": "Identifier type asked about, e.g. person_name.",
+                                                "title": "Pii Type",
+                                                "type": "string"
+                                            },
+                                            "probability": {
+                                                "description": "Jev's probability that this type is present.",
+                                                "maximum": 1.0,
+                                                "minimum": 0.0,
+                                                "title": "Probability",
+                                                "type": "number"
+                                            },
+                                            "detected": {
+                                                "description": "True when probability is at or above the detection threshold.",
+                                                "title": "Detected",
+                                                "type": "boolean"
+                                            }
+                                        },
+                                        "required": [
+                                            "pii_type",
+                                            "probability",
+                                            "detected"
+                                        ],
+                                        "title": "PiiFinding",
+                                        "type": "object"
+                                    },
+                                    "title": "Findings",
+                                    "type": "array"
+                                }
+                            },
+                            "required": [
+                                "boundary",
+                                "status"
+                            ],
+                            "title": "PiiDetectionReport",
+                            "type": "object"
+                        },
+                        "title": "Pii Reports",
+                        "type": "array"
+                    },
+                    "pii_types_detected": {
+                        "description": "Distinct identifier types detected across every boundary, at or above the detection threshold. The readable form.",
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Pii Types Detected",
+                        "type": "array"
+                    },
+                    "pii_detected_by_type": {
+                        "additionalProperties": {
+                            "type": "boolean"
+                        },
+                        "description": "Every identifier type in the battery, answered true or false. Fixed shape, so an evaluator scores one leaf per type instead of walking a list whose positions shift on a single miss. This is the graded field.",
+                        "title": "Pii Detected By Type",
+                        "type": "object"
+                    },
+                    "pii_exposure": {
+                        "default": 0.0,
+                        "description": "Worst exposure score on any boundary, 0.0 to 3.0. 0 is clinical content with no identifier; 3 is a name plus other direct identifiers.",
+                        "title": "Pii Exposure",
+                        "type": "number"
+                    },
+                    "pii_detection_status": {
+                        "default": "",
+                        "description": "\"checked\" when every boundary was inspected, otherwise the reason one was not. Detection is fail-open, so this field is the only thing that distinguishes a clean run from an unchecked one.",
+                        "title": "Pii Detection Status",
+                        "type": "string"
+                    },
+                    "escalation_status": {
+                        "default": "not-escalated",
+                        "description": "How the run ended with respect to the human gate: \"not-escalated\" (never stopped), \"escalated\" (stopped, the reviewer decided), \"returned-to-agent\" (the reviewer sent it back and the agent re-triaged it), or \"returned-unresolved\" (sent back, and the agent still could not triage it). Human-Review does NOT escalate.",
+                        "title": "Escalation Status",
+                        "type": "string"
+                    },
+                    "human_decision": {
+                        "description": "What the reviewer sent back from the action app.\n\nThis is the human-approval record the audit pillar asks for: who decided,\nwhich button, on what rationale, and with the attestation ticked.",
+                        "properties": {
+                            "outcome": {
+                                "default": "",
+                                "description": "The outcome button: Approve, Deny, or ReturnToAgent.",
+                                "title": "Outcome",
+                                "type": "string"
+                            },
+                            "notes": {
+                                "default": "",
+                                "description": "The reviewer's determination rationale.",
+                                "title": "Notes",
+                                "type": "string"
+                            },
+                            "attestation": {
+                                "default": false,
+                                "description": "True when the reviewer confirmed they read the clinical evidence before deciding.",
+                                "title": "Attestation",
+                                "type": "boolean"
+                            },
+                            "final_urgency": {
+                                "default": "",
+                                "description": "Urgency after human review.",
+                                "title": "Final Urgency",
+                                "type": "string"
+                            },
+                            "task_id": {
+                                "anyOf": [
+                                    {
+                                        "type": "integer"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "Action Center task id, for the audit trail.",
+                                "title": "Task Id"
+                            },
+                            "task_status": {
+                                "default": "",
+                                "description": "Task status as Action Center reported it.",
+                                "title": "Task Status",
+                                "type": "string"
+                            }
+                        },
+                        "title": "HumanDecision",
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "case_id",
+                    "review_path",
+                    "routing_rationale",
+                    "exception_reason",
+                    "data_quality",
+                    "high_cost",
+                    "urgency",
+                    "clinical_summary",
+                    "confidence"
+                ]
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "__start__",
+                        "name": "__start__",
+                        "type": "__start__",
+                        "subgraph": null,
+                        "metadata": {}
+                    },
+                    {
+                        "id": "triage",
+                        "name": "triage",
+                        "type": "node",
+                        "subgraph": null,
+                        "metadata": {}
+                    },
+                    {
+                        "id": "escalate",
+                        "name": "escalate",
+                        "type": "node",
+                        "subgraph": null,
+                        "metadata": {}
+                    },
+                    {
+                        "id": "finalize",
+                        "name": "finalize",
+                        "type": "node",
+                        "subgraph": null,
+                        "metadata": {}
+                    },
+                    {
+                        "id": "__end__",
+                        "name": "__end__",
+                        "type": "__end__",
+                        "subgraph": null,
+                        "metadata": {}
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "__start__",
+                        "target": "triage",
+                        "label": null
+                    },
+                    {
+                        "source": "escalate",
+                        "target": "finalize",
+                        "label": null
+                    },
+                    {
+                        "source": "escalate",
+                        "target": "triage",
+                        "label": null
+                    },
+                    {
+                        "source": "triage",
+                        "target": "escalate",
+                        "label": null
+                    },
+                    {
+                        "source": "triage",
+                        "target": "finalize",
+                        "label": null
+                    },
+                    {
+                        "source": "finalize",
+                        "target": "__end__",
+                        "label": null
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+{
+  "ProjectType": "Agent",
+  "Name": "prior-auth-triage-agent",
+  "Description": "Prior-auth intake triage agent with a TypeSafe Jev PII detection guardrail on the model boundary",
+  "MainFile": null
+}

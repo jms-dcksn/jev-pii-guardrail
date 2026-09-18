@@ -1,0 +1,15 @@
+{
+  "case_id": "PA-1017",
+  "member_id": "SMBR-000017",
+  "member_dob": "9/6/97",
+  "plan_type": "Commercial PPO",
+  "provider_npi": "1000000173",
+  "service_requested": "Behavioral Health IOP",
+  "cpt_code": "H0015",
+  "icd10_code": "F33.1",
+  "clinical_indication": "Major depressive disorder recurrent",
+  "submitted_date": "8/9/26",
+  "requested_urgency": "Routine",
+  "estimated_cost": 6200.0,
+  "clinical_note": "*** SYNTHETIC PHI PLANTED FOR REDACTION TEST (2 of 2) *** Pt: Michael O'Brien-Reyes, d.o.b. September 6 1997, member no. SMBR-000017, policy #HPLAN-PPO-88214-03. Contact 4015550147 or michael.obrienreyes@examplemail.net; resides at Apt 4B, 812 Broad St, Pawtucket RI 02860. Recurrent major depression, PHQ-9 of 18; outpatient weekly therapy insufficient. Requesting intensive outpatient program. Treating clinician: Dr. Priya Nandakumar (NPI 1000000173). Note contains 42 CFR Part 2 protected substance-use history."
+}
