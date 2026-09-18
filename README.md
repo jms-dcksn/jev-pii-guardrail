@@ -7,38 +7,6 @@ This is a variant of an intake triage agent that masks every identifier before
 the model call. This one does not mask anything. It sends the request in the
 clear and measures what crosses the boundary.
 
-## What it shows
-
-1. A non-UiPath detector can sit on the LLM boundary of a UiPath coded agent.
-2. The detector sees both boundaries, the request and the structured response.
-3. The UiPath `@guardrail` decorator cannot do either. See below.
-
-## Why not the `@guardrail` decorator
-
-The decorator has two defects. Both are verified against `uipath-langchain`
-0.18.11. `tests/test_jev_pii.py` proves the fix for each.
-
-**Defect 1. A custom rule never runs on a chat model.**
-`_langchain_adapter._apply_llm_pre` calls the evaluator with
-`evaluator(text, PRE, None, None)`. The text goes into `data`. Both
-`input_data` and `output_data` are `None`. But `CustomValidator.evaluate`
-reads only `input_data` and `output_data`. It returns "Rule skipped: data
-unavailable at this stage". Your rule function is never called. Tool scope
-passes real dicts and works. LLM scope and agent scope do not.
-
-**Defect 2. The output boundary is never checked.**
-`_apply_llm_post` stops on its first line unless `response.content` is a
-non-empty string. When you set `response_format`, LangChain binds a
-ToolStrategy. The model answers with a tool call. The content is empty.
-
-There is also no UiPath route to a local custom detector on the model
-boundary. `UiPathDeterministicGuardrailMiddleware` is the only local-rule
-middleware, and it is tool scope only.
-
-So the guardrail is a LangChain `AgentMiddleware` on `awrap_model_call`. That
-hook sees the full request, the system message included. It also sees
-`ModelResponse.structured_response`, which is the boundary defect 2 hides.
-
 ## How the guardrail works
 
 `jev_pii.py` asks the TypeSafe Jev model one narrow question for each
